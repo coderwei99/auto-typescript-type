@@ -1,12 +1,31 @@
 {
-  "description": "",
+  "description": "auto create type",
+  "packageManager": "pnpm@9.7.1",
+  "type": "module",
   "scripts": {
-    "test": "vitest"
+    "test": "vitest",
+    "check": "tsc --incremental --noEmit"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged && pnpm check",
+    "commit-msg": "node scripts/verify-commit.js"
+  },
+  "lint-staged": {
+    "*.{js,json}": [
+      "prettier --write"
+    ],
+    "*.ts?(x)": [
+      "eslint --fix",
+      "prettier --parser=typescript --write"
+    ]
+  },
   "devDependencies": {
+    "lint-staged": "^15.2.9",
+    "prettier": "^3.3.3",
+    "simple-git-hooks": "^2.11.1",
     "vitest": "^2.0.5"
   }
 }
